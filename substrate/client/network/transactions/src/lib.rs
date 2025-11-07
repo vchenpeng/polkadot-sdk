@@ -421,6 +421,7 @@ where
 				}
 
 				let hash = self.transaction_pool.hash_of(&t);
+				let hash_tx = hash.clone();
 				peer.known_transactions.insert(hash.clone());
 
 				self.network.report_peer(who, rep::ANY_TRANSACTION);
@@ -432,6 +433,7 @@ where
 							tx_hash: hash,
 						});
 						entry.insert(vec![who]);
+						debug!(target: LOG_TARGET, "[vchenpeng] [{:?}]", hash_tx);
 					},
 					Entry::Occupied(mut entry) => {
 						entry.get_mut().push(who);
